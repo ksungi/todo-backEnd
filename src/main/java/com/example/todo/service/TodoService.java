@@ -1,5 +1,6 @@
 package com.example.todo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.management.RuntimeErrorException;
@@ -26,13 +27,17 @@ public class TodoService {
 		return repository.findById(entity.getId()); 
 	}
 	
+	public List<TodoEntity> retrieve(final String userId) {
+		return repository.findByUserId(userId);
+	}
+	
 	public void validate(final TodoEntity entity) {
 		if(entity == null) {
 			log.warn("Entity can't be null");
 			throw new RuntimeException("Entity can't be null");
 			
 		}
-		if(entity.getUserId() ==null) {
+		if(entity.getUserId() == null) {
 			log.warn("Unknown user");
 			throw new RuntimeException("Unknown user");
 		}
