@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="TODO")
+@Table(name="Todo")
 public class TodoEntity {
 	
 	@Id
