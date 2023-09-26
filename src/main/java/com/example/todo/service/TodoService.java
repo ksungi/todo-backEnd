@@ -3,8 +3,6 @@ package com.example.todo.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,7 @@ public class TodoService {
 	private TodoRepository repository;
 	
 	//CREATE
-	public Optional<TodoEntity>create(final TodoEntity entity){
+	public Optional<TodoEntity> create(final TodoEntity entity){
 		//Validations
 		validate(entity);
 		repository.save(entity);
@@ -45,10 +43,10 @@ public class TodoService {
 		return repository.findById(entity.getId());
 	}
 	
-	//UPDATE TODO
+	//UPDATE-TODO
 	public Optional<TodoEntity> updateTodo(final TodoEntity entity) {
 		//Validations
-		validate(entity);
+		//validate(entity); //이녀석이 원인
 		
 		//테이블에서 id에 해당하는 데이터 셋을 가져온다.
 		final Optional<TodoEntity> original = repository.findById(entity.getId());

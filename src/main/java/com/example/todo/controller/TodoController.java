@@ -152,6 +152,7 @@ public class TodoController {
 			ResponseDTO<String> response = ResponseDTO.<String>builder().data(message).build();
 			
 			return ResponseEntity.ok().body(response);
+			
 		}catch(Exception e) {
 			String error = e.getMessage();
 			ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().error(error).build();
