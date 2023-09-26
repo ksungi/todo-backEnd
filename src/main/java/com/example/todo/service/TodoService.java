@@ -19,6 +19,7 @@ public class TodoService {
 	@Autowired
 	private TodoRepository repository;
 	
+	//CREATE
 	public Optional<TodoEntity>create(final TodoEntity entity){
 		//Validations
 		validate(entity);
@@ -32,7 +33,7 @@ public class TodoService {
 		return repository.findByUserId(userId);
 	}
 	
-	
+	//UPDATE
 	public Optional<TodoEntity> update(final TodoEntity entity) {
 		//Validations
 		validate(entity);
@@ -44,6 +45,7 @@ public class TodoService {
 		return repository.findById(entity.getId());
 	}
 	
+	//UPDATE TODO
 	public Optional<TodoEntity> updateTodo(final TodoEntity entity) {
 		//Validations
 		validate(entity);
@@ -68,6 +70,7 @@ public class TodoService {
 		return repository.findById(entity.getId());
 	}
 	
+	//DELETE
 	public String delete(final String id) {
 		if(repository.existsById(id))
 			repository.deleteById(id);
