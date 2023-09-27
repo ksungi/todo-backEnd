@@ -18,12 +18,12 @@ public class TodoService {
 	private TodoRepository repository;
 	
 	//CREATE
-	public Optional<TodoEntity> create(final TodoEntity entity){
+	public List<TodoEntity> create(final TodoEntity entity){
 		//Validations
 		validate(entity);
 		repository.save(entity);
 		
-		return repository.findById(entity.getId()); 
+		return repository.findByUserId(entity.getUserId()); 
 	}
 	
 	
@@ -32,7 +32,7 @@ public class TodoService {
 	}
 	
 	//UPDATE
-	public Optional<TodoEntity> update(final TodoEntity entity) {
+	public List<TodoEntity> update(final TodoEntity entity) {
 		//Validations
 		validate(entity);
 		if (repository.existsById(entity.getId())) {
@@ -40,33 +40,33 @@ public class TodoService {
 		}else
 			throw new RuntimeException("Unknown id");
 		
-		return repository.findById(entity.getId());
+		return repository.findByUserId(entity.getUserId());
 	}
 	
-	//UPDATE-TODO
-	public Optional<TodoEntity> updateTodo(final TodoEntity entity) {
-		//Validations
-		//validate(entity); //이녀석이 원인
-		
-		//테이블에서 id에 해당하는 데이터 셋을 가져온다.
-		final Optional<TodoEntity> original = repository.findById(entity.getId());
-		
-		//original에 담긴 내용을 todo에 할당하고 title, done 값을 변경
-		original.ifPresent(todo -> {
-			todo.setTitle(entity.getTitle());
-			todo.setDone(entity.isDone());
-			repository.save(todo);
-		});
-		//위 람다식과 같은 표현
-		/** if(original.isPresent()) {
-		*	 final TodoEntity todo = original.get();
-		*	 todo.setTitle(entity.getTitle());
-		*	 todo.setDone(entity.isDone());
-		*	 repository.save(todo);
-		 }*/
-		
-		return repository.findById(entity.getId());
-	}
+	//UPDATE-TODO 사용하지 않음
+//	public Optional<TodoEntity> updateTodo(final TodoEntity entity) {
+//		//Validations
+//		//validate(entity); //이녀석이 원인
+//		
+//		//테이블에서 id에 해당하는 데이터 셋을 가져온다.
+//		final Optional<TodoEntity> original = repository.findById(entity.getId());
+//		
+//		//original에 담긴 내용을 todo에 할당하고 title, done 값을 변경
+//		original.ifPresent(todo -> {
+//			todo.setTitle(entity.getTitle());
+//			todo.setDone(entity.isDone());
+//			repository.save(todo);
+//		});
+//		//위 람다식과 같은 표현
+//		/** if(original.isPresent()) {
+//		*	 final TodoEntity todo = original.get();
+//		*	 todo.setTitle(entity.getTitle());
+//		*	 todo.setDone(entity.isDone());
+//		*	 repository.save(todo);
+//		 }*/
+//		
+//		return repository.findById(entity.getId());
+//	}
 	
 	//DELETE
 	public String delete(final String id) {
@@ -78,6 +78,7 @@ public class TodoService {
 		return "Deleted";
 	}
 	
+	//Validation
 	public void validate(final TodoEntity entity) {
 		if(entity == null) {
 			log.warn("Entity can't be null");
