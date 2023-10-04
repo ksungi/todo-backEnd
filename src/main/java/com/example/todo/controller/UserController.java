@@ -28,7 +28,8 @@ public class UserController {
 	@PostMapping("/signup")
 	public ResponseEntity<?>registerUser(@RequestBody UserDTO userDTO){
 		try {
-			UserEntity user = UserEntity.builder().email(userDTO.getEmail())
+			UserEntity user = UserEntity.builder()
+										.email(userDTO.getEmail())
 										.username(userDTO.getUsername())
 										.password(userDTO.getPassword())
 										.build();

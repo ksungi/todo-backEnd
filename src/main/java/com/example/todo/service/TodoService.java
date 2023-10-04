@@ -1,5 +1,6 @@
 package com.example.todo.service;
 
+import java.io.Console;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,8 +69,8 @@ public class TodoService {
 	
 	//DELETE
 	public List<TodoEntity> delete(final TodoEntity entity) {
-		if(repository.existsById(entity.getUserId()))
-			repository.deleteById(entity.getUserId());
+		if( repository.existsById( entity.getId() ) )
+			repository.deleteById( entity.getId() );
 		else
 			throw new RuntimeException("id does not exist");
 		
