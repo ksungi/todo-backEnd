@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.todo.dto.UserDTO;
 import com.example.todo.model.UserEntity;
 import com.example.todo.persistence.UserRepository;
 
@@ -33,5 +34,14 @@ public class UserService {
 			return originalUser;
 		}
 		return null;
+	}
+	
+	
+	public UserEntity getUserEntity(final String eamil) {
+		return userRepository.findByEmail(eamil);
+	}
+	
+	public void updateUserEntity(final UserEntity userEntity) {
+		userRepository.save(userEntity);
 	}
 }

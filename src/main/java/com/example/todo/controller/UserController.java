@@ -74,4 +74,19 @@ public class UserController {
 			return ResponseEntity.badRequest().body(responseDTO);
 		}
 	}
+	
+	@PostMapping("/userinfoset")
+	public void userInfoSet(@RequestBody UserDTO userDTO) {
+		//user 원래 정보
+		String before_userset = userService.getUserEntity(userDTO.getEmail().toString()).getId();
+		
+		//업데이트 정보 & 기존 정보를 담을 임시 개체
+		UserEntity after_userset = UserEntity.builder().id(before_userset)
+												.email(userDTO.getEmail())
+												.username(userDTO.getUsername())
+												.password(passwordEncoder.encode(userDTO.getPassword()))
+												.build();
+		//업데이트
+		userService.updateUserEntity(after_userset);
+	}
 }
