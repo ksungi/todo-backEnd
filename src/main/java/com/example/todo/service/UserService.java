@@ -27,7 +27,7 @@ public class UserService {
 		}
 		return userRepository.save(userEntity);
 	}
-	public UserEntity getByCredentials(final String email, final String password, final PasswordEncoder encoder) {
+	public UserEntity getByCredentials(final String email, final String username, final String password, final PasswordEncoder encoder) {
 		final UserEntity originalUser = userRepository.findByEmail(email);
 		
 		if(originalUser != null && encoder.matches(password, originalUser.getPassword())) {

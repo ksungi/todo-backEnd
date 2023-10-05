@@ -55,13 +55,14 @@ public class UserController {
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO){
-		UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword(),passwordEncoder);
+		UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getUsername(),userDTO.getPassword(),passwordEncoder);
 		
 		if(user != null) {
 			final String token = tokenProvider.create(user);
 			final UserDTO responseUserDTO = UserDTO.builder()
 													.email(user.getEmail())
 													.id(user.getId())
+													.username(user.getUsername())//여기수정
 													.token(token)
 													.build();
 			
